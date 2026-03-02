@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Công Cụ Tính Giá Bán</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-800">
+    <div class="max-w-6xl mx-auto space-y-6">
+      <div class="flex items-center gap-3 bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+        <div class="p-3 bg-blue-100 text-blue-600 rounded-lg">
+          <i data-lucide="calculator" class="w-7 h-7"></i>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">Công Cụ Tính Giá Bán Tối Ưu Lợi Nhuận</h1>
+          <p class="text-sm text-slate-500">Giúp nhà bán hàng tính chính xác giá bán trên sàn TMĐT không lo lỗ ẩn.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+            <h2 class="text-lg font-semibold flex items-center gap-2 mb-4 text-slate-700">
+              <i data-lucide="package-open" class="w-5 h-5 text-blue-500"></i> Thông số sản phẩm
+            </h2>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-1">Giá gốc / Giá nhập (VNĐ)</label>
+                <input id="cost" type="number" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-600 mb-1">Cân nặng (kg)</label>
+                  <input id="weight" type="number" class="w-full p-2.5 border border-slate-300 rounded-lg bg-slate-50" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-600 mb-1">Kích thước (cm)</label>
+                  <input id="dimensions" type="text" class="w-full p-2.5 border border-slate-300 rounded-lg bg-slate-50" />
+                </div>
+              </div>
+              <div class="pt-2 border-t border-slate-100">
+                <label class="block text-sm font-medium text-slate-600 mb-1">Phí đóng gói & Phụ phí khác (VNĐ)</label>
+                <p class="text-xs text-slate-400 mb-2">Hàng to/nặng phí đóng gói (thùng, mút xốp) thường cao.</p>
+                <input id="packaging" type="number" class="w-full p-2.5 border border-slate-300 rounded-lg" />
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+            <h2 class="text-lg font-semibold flex items-center gap-2 mb-4 text-slate-700">
+              <i data-lucide="settings-2" class="w-5 h-5 text-orange-500"></i> Các loại phí trên sàn (%)
+            </h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div><label class="block text-sm font-medium text-slate-600 mb-1">Phí thanh toán</label><div class="relative"><input id="paymentFee" type="number" class="w-full p-2.5 pr-8 border border-slate-300 rounded-lg" /><span class="absolute right-3 top-2.5 text-slate-400">%</span></div></div>
+              <div><label class="block text-sm font-medium text-slate-600 mb-1">Phí cố định</label><div class="relative"><input id="fixedFee" type="number" class="w-full p-2.5 pr-8 border border-slate-300 rounded-lg" /><span class="absolute right-3 top-2.5 text-slate-400">%</span></div></div>
+              <div><label class="block text-sm font-medium text-slate-600 mb-1">Phí Freeship/Hoàn xu</label><div class="relative"><input id="extraFee" type="number" class="w-full p-2.5 pr-8 border border-slate-300 rounded-lg" /><span class="absolute right-3 top-2.5 text-slate-400">%</span></div></div>
+              <div><label class="block text-sm font-medium text-slate-600 mb-1">Phí Quảng cáo/Affiliate</label><div class="relative"><input id="adsFee" type="number" class="w-full p-2.5 pr-8 border border-slate-300 rounded-lg" /><span class="absolute right-3 top-2.5 text-slate-400">%</span></div></div>
+            </div>
+            <div class="mt-4 p-3 bg-orange-50 rounded-lg flex justify-between items-center text-orange-800 border border-orange-100">
+              <span class="text-sm font-medium">Tổng phần trăm phí:</span>
+              <span id="totalFee" class="font-bold text-lg">0%</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+            <h2 class="text-lg font-semibold flex items-center gap-2 mb-4 text-slate-700"><i data-lucide="trending-up" class="w-5 h-5 text-green-500"></i> Lợi nhuận kỳ vọng</h2>
+            <label class="block text-sm font-medium text-slate-600 mb-1">Mức lợi nhuận mong muốn thu về (VNĐ)</label>
+            <input id="targetProfit" type="number" class="w-full p-2.5 border border-slate-300 rounded-lg text-lg font-semibold text-green-700" />
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6">
+          <div id="resultArea"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const state = {
+        cost: 299000,
+        weight: 5,
+        dimensions: '40x80x10',
+        packaging: 15000,
+        paymentFee: 4,
+        fixedFee: 4,
+        extraFee: 7,
+        adsFee: 5,
+        targetProfit: 100000,
+      };
+
+      const ids = ['cost','weight','dimensions','packaging','paymentFee','fixedFee','extraFee','adsFee','targetProfit'];
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        el.value = state[id];
+        el.addEventListener('input', (e) => {
+          state[id] = id === 'dimensions' ? e.target.value : Number(e.target.value || 0);
+          render();
+        });
+      });
+
+      const formatVND = (value) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+
+      function calculate() {
+        const totalBaseCost = state.cost + state.packaging;
+        const totalFeePercentage = state.paymentFee + state.fixedFee + state.extraFee + state.adsFee;
+        if (totalFeePercentage >= 100) return null;
+        const factor = 1 - totalFeePercentage / 100;
+        const breakEvenPrice = totalBaseCost / factor;
+        const targetPrice = (totalBaseCost + state.targetProfit) / factor;
+        const roundedTarget = Math.ceil(targetPrice / 1000) * 1000;
+        const psyPrice1 = Math.ceil(targetPrice / 10000) * 10000 - 1000;
+        const finalPsyPrice1 = psyPrice1 < targetPrice ? psyPrice1 + 10000 : psyPrice1;
+        const remainder = roundedTarget % 10000;
+        let finalPsyPrice2 = roundedTarget;
+        if (remainder > 0 && remainder <= 5000) finalPsyPrice2 = roundedTarget - remainder + 5000;
+        else if (remainder > 5000) finalPsyPrice2 = roundedTarget - remainder + 10000;
+        const premiumPrice = Math.ceil((targetPrice * 1.15) / 10000) * 10000 - 1000;
+        const getBreakdown = (sellingPrice) => {
+          const feeAmount = sellingPrice * (totalFeePercentage / 100);
+          const actualProfit = sellingPrice - totalBaseCost - feeAmount;
+          return { feeAmount, actualProfit };
+        };
+        return {
+          totalBaseCost,totalFeePercentage,breakEvenPrice,targetPrice,
+          suggestions:{psychological:finalPsyPrice1,standard:finalPsyPrice2,premium:premiumPrice},
+          breakdownTarget:getBreakdown(targetPrice),
+          breakdownPsy:getBreakdown(finalPsyPrice1),
+          breakdownStandard:getBreakdown(finalPsyPrice2),
+          breakdownPremium:getBreakdown(premiumPrice),
+        };
+      }
+
+      function render() {
+        const calculations = calculate();
+        document.getElementById('totalFee').textContent = `${calculations?.totalFeePercentage ?? 0}%`;
+        const resultArea = document.getElementById('resultArea');
+
+        if (!calculations) {
+          resultArea.innerHTML = `<div class="bg-red-50 text-red-600 p-6 rounded-xl flex items-center gap-3 border border-red-200"><i data-lucide="alert-circle" class="w-6 h-6"></i><p>Tổng phần trăm phí không hợp lệ (Lớn hơn hoặc bằng 100%). Vui lòng kiểm tra lại!</p></div>`;
+          lucide.createIcons();
+          return;
+        }
+
+        resultArea.innerHTML = `
+          <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 opacity-10"><i data-lucide="shopping-cart" class="w-36 h-36"></i></div>
+            <div class="relative z-10">
+              <p class="text-blue-100 mb-1 text-sm font-medium uppercase tracking-wider">Giá bán cần thiết để đạt mục tiêu</p>
+              <h2 class="text-4xl md:text-5xl font-extrabold">${formatVND(calculations.targetPrice)}</h2>
+              <div class="mt-6 grid grid-cols-2 gap-4">
+                <div class="bg-white/10 p-3 rounded-lg"><p class="text-blue-200 text-xs mb-1">Giá hòa vốn</p><p class="font-semibold text-lg">${formatVND(calculations.breakEvenPrice)}</p></div>
+                <div class="bg-white/10 p-3 rounded-lg"><p class="text-blue-200 text-xs mb-1">Lợi nhuận ròng</p><p class="font-semibold text-lg text-green-300">+${formatVND(state.targetProfit)}</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+            <h3 class="text-md font-bold mb-4">Phân bổ dòng tiền</h3>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between p-2"><span>Vốn & đóng gói</span><span class="font-semibold">${formatVND(calculations.totalBaseCost)}</span></div>
+              <div class="flex justify-between p-2 text-red-600"><span>Phí sàn (${calculations.totalFeePercentage}%)</span><span class="font-semibold">-${formatVND(calculations.breakdownTarget.feeAmount)}</span></div>
+              <div class="flex justify-between p-3 rounded-lg bg-green-50 text-green-700 border border-green-100"><span class="font-bold">Lợi nhuận thực nhận</span><span class="font-bold text-lg">${formatVND(calculations.breakdownTarget.actualProfit)}</span></div>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-emerald-200">
+            <h2 class="text-lg font-bold text-emerald-800 mb-4">Gợi Ý Tối Ưu Giá Nên Bán</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="border border-emerald-100 bg-emerald-50 rounded-xl p-4"><p class="font-semibold">Giá đuôi 9</p><p class="text-2xl font-bold">${formatVND(calculations.suggestions.psychological)}</p></div>
+              <div class="border border-slate-200 rounded-xl p-4"><p class="font-semibold">Giá làm tròn</p><p class="text-2xl font-bold">${formatVND(calculations.suggestions.standard)}</p></div>
+              <div class="border border-slate-200 rounded-xl p-4 md:col-span-2"><p class="font-semibold text-purple-700">Giá Premium</p><p class="text-2xl font-bold">${formatVND(calculations.suggestions.premium)}</p></div>
+            </div>
+          </div>`;
+        lucide.createIcons();
+      }
+
+      render();
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
